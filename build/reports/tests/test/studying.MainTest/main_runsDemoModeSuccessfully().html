@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="x-ua-compatible" content="IE=edge"/>
+<title>Test results - main_runsDemoModeSuccessfully()</title>
+<link href="../css/base-style.css" rel="stylesheet" type="text/css"/>
+<link href="../css/style.css" rel="stylesheet" type="text/css"/>
+<script src="../js/report.js" type="text/javascript"></script>
+</head>
+<body>
+<div id="content">
+<div class="breadcrumbs">
+<a class="breadcrumb" href="../index.html">all</a> &gt; 
+<a class="breadcrumb" href="index.html">studying.MainTest</a> &gt; 
+<span class="breadcrumb">main_runsDemoModeSuccessfully()</span>
+</div>
+<div class="tab-container">
+<ul class="tabLinks">
+<li>
+<a class="successGroup" href="#">Gradle Test Run :test</a>
+</li>
+</ul>
+<div class="tab">
+<h2>Gradle Test Run :test</h2>
+<h1>Запуск приложения с флагом --demo выполняется без ошибок</h1>
+<div class="tab-container">
+<ul class="tabLinks">
+<li>
+<a class="" href="#">summary</a>
+</li>
+<li>
+<a class="" href="#">standard output</a>
+</li>
+</ul>
+<div class="tab">
+<h2>summary</h2>
+<div>
+<div class="summary">
+<table>
+<tr>
+<td>
+<div class="summaryGroup">
+<table>
+<tr>
+<td>
+<div class="infoBox">
+<div class="counter">1</div>
+<p>tests</p>
+</div>
+</td>
+<td>
+<div class="infoBox">
+<div class="counter">0</div>
+<p>failures</p>
+</div>
+</td>
+<td>
+<div class="infoBox">
+<div class="counter">0</div>
+<p>skipped</p>
+</div>
+</td>
+<td>
+<div class="infoBox duration">
+<div class="counter">0.015s</div>
+<p>duration</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</td>
+<td>
+<div class="infoBox success successRate">
+<div class="percent">100%</div>
+<p>successful</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="tab">
+<h2>standard output</h2>
+<span class="code">
+<pre id="root-0-test-stdout-main_runsDemoModeSuccessfully()">==========================================================
+        Добро пожаловать в сервис кикшеринга «ВышКат»      
+                   «Доедем до дедлайна»                   
+==========================================================
+
+Доступные команды:
+  1. add-scooter &lt;название&gt; &lt;простота 1-10&gt; &lt;кВт*ч&gt;  — Добавить электросамокат
+  2. add-bike &lt;название&gt; &lt;простота 1-10&gt;             — Добавить обычный велосипед
+  3. add-ebike &lt;название&gt; &lt;простота 1-10&gt; &lt;кВт*ч&gt;    — Добавить электровелосипед
+  4. add-helmet &lt;название&gt;                           — Поставить на баланс шлем
+  5. add-station &lt;название&gt; &lt;кВт*ч&gt;                  — Добавить док-станцию
+  6. add-charger &lt;название&gt; &lt;кВт*ч&gt;                  — Добавить зарядный шкаф
+  7. list                                            — Вывести все объекты парка
+  8. beginners                                       — Список техники для новичков (&gt;=6)
+  9. energy                                          — Суммарное потребление энергии
+  10. count                                          — Общее число единиц на балансе
+  11. demo                                           — Запустить готовый демо-сценарий
+  12. help                                           — Показать это меню
+  0. exit                                            — Выход из программы
+
+
+================ ДЕМОНСТРАЦИОННЫЙ СЦЕНАРИЙ ================
+1. Приём вещей на баланс (шлемы, зарядные шкафы, док-станции):
+   -&gt; Вещи успешно добавлены на баланс.
+
+2. Приём транспорта через техосмотр:
+Отправляем на техосмотр: Ninebot_Pro...
+✅ Техосмотр ПРОЙДЕН! Транспорт принят на баланс.
+Отправляем на техосмотр: SpeedDemon_Extreme...
+✅ Техосмотр ПРОЙДЕН! Транспорт принят на баланс.
+Отправляем на техосмотр: Forward_Classic...
+✅ Техосмотр ПРОЙДЕН! Транспорт принят на баланс.
+Отправляем на техосмотр: ElectroBike_City...
+❌ Техосмотр ОТКЛОНЁН! Транспорт не допущен в активный парк.
+
+3. Полный реестр имущества на балансе:
+• [ac6460f3-5057-4b99-a821-48b9769fc4cd] Шлем_HSE_Yellow -&gt; Helmet(id=ac6460f3-5057-4b99-a821-48b9769fc4cd, name=Шлем_HSE_Yellow)
+• [352c62df-a535-43be-9519-d3dda6291da9] Шкаф_Зарядный_Корпус_Покровка -&gt; Charger(id=352c62df-a535-43be-9519-d3dda6291da9, name=Шкаф_Зарядный_Корпус_Покровка, energyUsagePerDay=15.0)
+• [abe5e5a0-82a7-459c-a543-c2bfa6940324] ДокСтанция_Шаболовка -&gt; DockStation(id=abe5e5a0-82a7-459c-a543-c2bfa6940324, name=ДокСтанция_Шаболовка, energyUsagePerDay=5.5)
+• [08c95153-83ed-4a7b-aa75-b4139d755f08] Ninebot_Pro -&gt; Scooter(id=08c95153-83ed-4a7b-aa75-b4139d755f08, name=Ninebot_Pro, simplicity=8, energyUsagePerDay=2.5)
+• [580e3a71-3c71-4c90-a37f-04499883586d] SpeedDemon_Extreme -&gt; Scooter(id=580e3a71-3c71-4c90-a37f-04499883586d, name=SpeedDemon_Extreme, simplicity=3, energyUsagePerDay=4.0)
+• [f744f11b-70ff-42dd-ab37-07c521667373] Forward_Classic -&gt; Bicycle(id=f744f11b-70ff-42dd-ab37-07c521667373, name=Forward_Classic, simplicity=9)
+
+4. Техника, доступная для новичков (простота &gt;= 6):
+   • Scooter(id=08c95153-83ed-4a7b-aa75-b4139d755f08, name=Ninebot_Pro, simplicity=8, energyUsagePerDay=2.5)
+   • Bicycle(id=f744f11b-70ff-42dd-ab37-07c521667373, name=Forward_Classic, simplicity=9)
+
+5. Суммарный расход энергии активного парка: 27,00 кВт·ч
+   (Учитываются только электросамокаты, электровелосипеды и зарядные станции)
+================ КОНЕЦ ДЕМОНСТРАЦИИ ================
+&#x1f9f9; Парк успешно очищен после демонстрации.
+
+</pre>
+<button class="clipboard-copy-btn" aria-label="Copy to clipboard" data-copy-element-id="root-0-test-stdout-main_runsDemoModeSuccessfully()">Copy</button>
+</span>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<p>
+<div>
+<label class="hidden" id="label-for-line-wrapping-toggle" for="line-wrapping-toggle">Wrap lines
+<input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
+</label>
+</div>Generated by 
+<a href="https://www.gradle.org">Gradle 9.6.0</a> at 15 окт. 2026 г., 15:30:20</p>
+</div>
+</div>
+</body>
+</html>

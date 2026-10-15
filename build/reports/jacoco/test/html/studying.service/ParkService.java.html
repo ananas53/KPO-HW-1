@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="ru"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ParkService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">KPO-HW-1</a> &gt; <a href="index.source.html" class="el_package">studying.service</a> &gt; <span class="el_source">ParkService.java</span></div><h1>ParkService.java</h1><pre class="source lang-java linenums">package studying.service;
+
+import java.util.ArrayList;
+import java.util.List;
+import lombok.Getter;
+import studying.exception.ApplicationErrorCode;
+import studying.exception.ApplicationException;
+
+public class ParkService {
+<span class="fc" id="L10">    private List&lt;InventoryItem&gt; items = new ArrayList&lt;&gt;();</span>
+
+    @Getter
+    private double allEnergyUsagePerDay;
+    private ServiceCenter serviceCenter;
+
+<span class="fc" id="L16">    public ParkService(ServiceCenter serviceCenter) {</span>
+<span class="fc" id="L17">        this.serviceCenter = serviceCenter;</span>
+<span class="fc" id="L18">    }</span>
+
+    public boolean addNewTransport(Transport transport) {
+<span class="fc bfc" id="L21" title="All 2 branches covered.">        if (transport == null) {</span>
+<span class="fc" id="L22">            throw new ApplicationException(ApplicationErrorCode.VALIDATION_ERROR, &quot;Транспорт не может быть null&quot;);</span>
+        }
+<span class="fc bfc" id="L24" title="All 2 branches covered.">        if (serviceCenter.inspect(transport)) {</span>
+<span class="fc" id="L25">            items.add(transport);</span>
+<span class="fc bfc" id="L26" title="All 2 branches covered.">            if (transport instanceof EnergyConsumer) {</span>
+<span class="fc" id="L27">                allEnergyUsagePerDay += ((EnergyConsumer) transport).getEnergyUsagePerDay();</span>
+            }
+<span class="fc" id="L29">            return true;</span>
+        }
+
+<span class="fc" id="L32">        return false;</span>
+    }
+
+    public void addNewThing(Thing thing) {
+<span class="fc bfc" id="L36" title="All 2 branches covered.">        if (thing == null) {</span>
+<span class="fc" id="L37">            throw new ApplicationException(ApplicationErrorCode.VALIDATION_ERROR, &quot;Вещь не может быть null&quot;);</span>
+        }
+<span class="fc" id="L39">        items.add(thing);</span>
+<span class="fc bfc" id="L40" title="All 2 branches covered.">        if (thing instanceof EnergyConsumer) {</span>
+<span class="fc" id="L41">            allEnergyUsagePerDay += ((EnergyConsumer) thing).getEnergyUsagePerDay();</span>
+        }
+<span class="fc" id="L43">    }</span>
+
+    public void printItems() {
+<span class="fc bfc" id="L46" title="All 2 branches covered.">        if (items.isEmpty()) {</span>
+<span class="fc" id="L47">            System.out.println(&quot;Парк пуст.&quot;);</span>
+<span class="fc" id="L48">            return;</span>
+        }
+<span class="fc" id="L50">        items.forEach(item -&gt; System.out.println(&quot;• [&quot; + item.getId() + &quot;] &quot; + item.getName() + &quot; -&gt; &quot; + item));</span>
+<span class="fc" id="L51">    }</span>
+
+    public int getItemsCount() {
+<span class="fc" id="L54">        return items.size();</span>
+    }
+
+    public List&lt;Transport&gt; getTransportForBeginners() {
+<span class="fc" id="L58">        List&lt;Transport&gt; beginnersTransport = new ArrayList&lt;&gt;();</span>
+<span class="fc bfc" id="L59" title="All 2 branches covered.">        for (InventoryItem item : items) {</span>
+<span class="fc bfc" id="L60" title="All 4 branches covered.">            if (item instanceof Transport transport &amp;&amp; transport.getSimplicity() &gt;= 6) {</span>
+<span class="fc" id="L61">                beginnersTransport.add(transport);</span>
+            }
+<span class="fc" id="L63">        }</span>
+<span class="fc" id="L64">        return beginnersTransport;</span>
+    }
+
+    public void clearPark() {
+<span class="fc" id="L68">        items.clear();</span>
+<span class="fc" id="L69">        allEnergyUsagePerDay = 0.0;</span>
+<span class="fc" id="L70">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="Unit-тесты пункта техосмотра (ServiceCenter)" tests="1" skipped="0" failures="0" errors="0" timestamp="2026-10-15T12:30:20.069Z" hostname="MacBook-Air-Ila.local" time="0.001">
+  <properties/>
+  <testcase name="Метод inspect возвращает результат проверки без исключений" classname="studying.service.ServiceCenterTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
