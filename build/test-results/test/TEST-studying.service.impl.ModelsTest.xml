@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="Unit-тесты моделей транспорта и вещей" tests="7" skipped="0" failures="0" errors="0" timestamp="2026-10-15T12:30:20.071Z" hostname="MacBook-Air-Ila.local" time="0.006">
+  <properties/>
+  <testcase name="Проверка модели DockStation" classname="studying.service.impl.ModelsTest" time="0.002"/>
+  <testcase name="Конструкторы выбрасывают ApplicationException при некорректных аргументах" classname="studying.service.impl.ModelsTest" time="0.002"/>
+  <testcase name="Проверка модели Bicycle" classname="studying.service.impl.ModelsTest" time="0.0"/>
+  <testcase name="Проверка модели Charger" classname="studying.service.impl.ModelsTest" time="0.001"/>
+  <testcase name="Проверка модели Helmet" classname="studying.service.impl.ModelsTest" time="0.0"/>
+  <testcase name="Проверка модели Scooter" classname="studying.service.impl.ModelsTest" time="0.0"/>
+  <testcase name="Проверка модели ElectricBicycle" classname="studying.service.impl.ModelsTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

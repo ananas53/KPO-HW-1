@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="Unit-тесты сервиса парка (ParkService)" tests="9" skipped="0" failures="0" errors="0" timestamp="2026-10-15T12:30:19.548Z" hostname="MacBook-Air-Ila.local" time="0.52">
+  <properties/>
+  <testcase name="При попытке добавить null-транспорт выбрасывается ApplicationException" classname="studying.service.ParkServiceTest" time="0.467"/>
+  <testcase name="Фильтрация техники для новичков (простота &gt;= 6)" classname="studying.service.ParkServiceTest" time="0.031"/>
+  <testcase name="При отклонении техосмотра транспорт не попадает в активный парк" classname="studying.service.ParkServiceTest" time="0.007"/>
+  <testcase name="Печать элементов отрабатывает корректно для пустого и заполненного парка" classname="studying.service.ParkServiceTest" time="0.001"/>
+  <testcase name="При попытке добавить null-вещь выбрасывается ApplicationException" classname="studying.service.ParkServiceTest" time="0.001"/>
+  <testcase name="При успешном техосмотре транспорт принимается на баланс и учитывается энергия" classname="studying.service.ParkServiceTest" time="0.002"/>
+  <testcase name="Вещи принимаются на баланс без прохождения техосмотра" classname="studying.service.ParkServiceTest" time="0.002"/>
+  <testcase name="Очистка парка обнуляет счетчик энергии и список объектов" classname="studying.service.ParkServiceTest" time="0.001"/>
+  <testcase name="При успешном техосмотре безмоторного транспорта энергия не увеличивается" classname="studying.service.ParkServiceTest" time="0.002"/>
+  <system-out><![CDATA[Парк пуст.
+• [1e8bbd01-12da-4c54-8a03-fe53fe8e9609] Author -> Bicycle(id=1e8bbd01-12da-4c54-8a03-fe53fe8e9609, name=Author, simplicity=8)
+• [586c398c-30d5-47ee-8b65-eef449c97f3b] Шлем L -> Helmet(id=586c398c-30d5-47ee-8b65-eef449c97f3b, name=Шлем L)
+]]></system-out>
+  <system-err><![CDATA[Mockito is currently self-attaching to enable the inline-mock-maker. This will no longer work in future releases of the JDK. Please add Mockito as an agent to your build as described in Mockito's documentation: https://javadoc.io/doc/org.mockito/mockito-core/latest/org.mockito/org/mockito/Mockito.html#0.3
+WARNING: A Java agent has been loaded dynamically (/Users/ilyalevshin/.gradle/caches/modules-2/files-2.1/net.bytebuddy/byte-buddy-agent/1.17.7/fbf3d6d649ed37fc9e9c59480a05be0a26e3c2da/byte-buddy-agent-1.17.7.jar)
+WARNING: If a serviceability tool is in use, please run with -XX:+EnableDynamicAgentLoading to hide this warning
+WARNING: If a serviceability tool is not in use, please run with -Djdk.instrument.traceUsage for more information
+WARNING: Dynamic loading of agents will be disallowed by default in a future release
+]]></system-err>
+</testsuite>

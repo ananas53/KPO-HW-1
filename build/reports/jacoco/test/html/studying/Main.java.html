@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="ru"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Main.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">KPO-HW-1</a> &gt; <a href="index.source.html" class="el_package">studying</a> &gt; <span class="el_source">Main.java</span></div><h1>Main.java</h1><pre class="source lang-java linenums">package studying;
+
+import java.util.List;
+import java.util.Scanner;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import studying.configuration.ApplicationConfiguration;
+import studying.exception.ApplicationException;
+import studying.service.ParkService;
+import studying.service.Transport;
+import studying.service.impl.Bicycle;
+import studying.service.impl.Charger;
+import studying.service.impl.DockStation;
+import studying.service.impl.ElectricBicycle;
+import studying.service.impl.Helmet;
+import studying.service.impl.Scooter;
+
+<span class="nc" id="L17">public class Main {</span>
+    public static void main(String[] args) {
+<span class="fc" id="L19">        var context = new AnnotationConfigApplicationContext(ApplicationConfiguration.class);</span>
+<span class="fc" id="L20">        var parkService = context.getBean(ParkService.class);</span>
+
+<span class="fc" id="L22">        printBanner();</span>
+
+<span class="pc bpc" id="L24" title="1 of 4 branches missed.">        if (args.length &gt; 0 &amp;&amp; args[0].equalsIgnoreCase(&quot;--demo&quot;)) {</span>
+<span class="fc" id="L25">            runAutomatedDemo(parkService);</span>
+<span class="fc" id="L26">            return;</span>
+        }
+
+<span class="fc" id="L29">        runInteractiveCli(parkService);</span>
+<span class="fc" id="L30">    }</span>
+
+    private static void printBanner() {
+<span class="fc" id="L33">        System.out.println(&quot;==========================================================&quot;);</span>
+<span class="fc" id="L34">        System.out.println(&quot;        Добро пожаловать в сервис кикшеринга «ВышКат»      &quot;);</span>
+<span class="fc" id="L35">        System.out.println(&quot;                   «Доедем до дедлайна»                   &quot;);</span>
+<span class="fc" id="L36">        System.out.println(&quot;==========================================================&quot;);</span>
+<span class="fc" id="L37">        printHelp();</span>
+<span class="fc" id="L38">    }</span>
+
+    private static void printHelp() {
+<span class="fc" id="L41">        System.out.println(&quot;\nДоступные команды:&quot;);</span>
+<span class="fc" id="L42">        System.out.println(&quot;  1. add-scooter &lt;название&gt; &lt;простота 1-10&gt; &lt;кВт*ч&gt;  — Добавить электросамокат&quot;);</span>
+<span class="fc" id="L43">        System.out.println(&quot;  2. add-bike &lt;название&gt; &lt;простота 1-10&gt;             — Добавить обычный велосипед&quot;);</span>
+<span class="fc" id="L44">        System.out.println(&quot;  3. add-ebike &lt;название&gt; &lt;простота 1-10&gt; &lt;кВт*ч&gt;    — Добавить электровелосипед&quot;);</span>
+<span class="fc" id="L45">        System.out.println(&quot;  4. add-helmet &lt;название&gt;                           — Поставить на баланс шлем&quot;);</span>
+<span class="fc" id="L46">        System.out.println(&quot;  5. add-station &lt;название&gt; &lt;кВт*ч&gt;                  — Добавить док-станцию&quot;);</span>
+<span class="fc" id="L47">        System.out.println(&quot;  6. add-charger &lt;название&gt; &lt;кВт*ч&gt;                  — Добавить зарядный шкаф&quot;);</span>
+<span class="fc" id="L48">        System.out.println(&quot;  7. list                                            — Вывести все объекты парка&quot;);</span>
+<span class="fc" id="L49">        System.out.println(&quot;  8. beginners                                       — Список техники для новичков (&gt;=6)&quot;);</span>
+<span class="fc" id="L50">        System.out.println(&quot;  9. energy                                          — Суммарное потребление энергии&quot;);</span>
+<span class="fc" id="L51">        System.out.println(&quot;  10. count                                          — Общее число единиц на балансе&quot;);</span>
+<span class="fc" id="L52">        System.out.println(&quot;  11. demo                                           — Запустить готовый демо-сценарий&quot;);</span>
+<span class="fc" id="L53">        System.out.println(&quot;  12. help                                           — Показать это меню&quot;);</span>
+<span class="fc" id="L54">        System.out.println(&quot;  0. exit                                            — Выход из программы\n&quot;);</span>
+<span class="fc" id="L55">    }</span>
+
+    private static void runInteractiveCli(ParkService parkService) {
+<span class="fc" id="L58">        Scanner scanner = new Scanner(System.in);</span>
+        while (true) {
+<span class="fc" id="L60">            System.out.print(&quot;vyshkat&gt; &quot;);</span>
+<span class="pc bpc" id="L61" title="1 of 2 branches missed.">            if (!scanner.hasNextLine()) {</span>
+<span class="nc" id="L62">                break;</span>
+            }
+<span class="fc" id="L64">            String line = scanner.nextLine().trim();</span>
+<span class="pc bpc" id="L65" title="1 of 2 branches missed.">            if (line.isEmpty()) {</span>
+<span class="nc" id="L66">                continue;</span>
+            }
+
+<span class="fc" id="L69">            String[] tokens = line.split(&quot;\\s+&quot;);</span>
+<span class="fc" id="L70">            String command = tokens[0].toLowerCase();</span>
+
+<span class="pc bpc" id="L72" title="6 of 14 branches missed.">            switch (command) {</span>
+                case &quot;0&quot;:
+                case &quot;exit&quot;:
+<span class="fc" id="L75">                    System.out.println(&quot;До свидания! Сервис «ВышКат» завершает работу.&quot;);</span>
+<span class="fc" id="L76">                    return;</span>
+                case &quot;12&quot;:
+                case &quot;help&quot;:
+<span class="fc" id="L79">                    printHelp();</span>
+<span class="fc" id="L80">                    break;</span>
+                case &quot;7&quot;:
+                case &quot;list&quot;:
+<span class="fc" id="L83">                    System.out.println(&quot;\n--- Реестр объектов на балансе парка ---&quot;);</span>
+<span class="fc" id="L84">                    parkService.printItems();</span>
+<span class="fc" id="L85">                    break;</span>
+                case &quot;8&quot;:
+                case &quot;beginners&quot;:
+<span class="fc" id="L88">                    System.out.println(&quot;\n--- Техника для новичков (простота &gt;= 6) ---&quot;);</span>
+<span class="fc" id="L89">                    List&lt;Transport&gt; beginners = parkService.getTransportForBeginners();</span>
+<span class="pc bpc" id="L90" title="1 of 2 branches missed.">                    if (beginners.isEmpty()) {</span>
+<span class="nc" id="L91">                        System.out.println(&quot;Нет подходящей техники для новичков.&quot;);</span>
+                    } else {
+<span class="fc" id="L93">                        beginners.forEach(t -&gt; System.out.println(&quot;• &quot; + t));</span>
+                    }
+<span class="fc" id="L95">                    break;</span>
+                case &quot;9&quot;:
+                case &quot;energy&quot;:
+<span class="fc" id="L98">                    System.out.printf(&quot;Суммарный суточный расход энергии: %.2f кВт·ч\n&quot;,</span>
+<span class="fc" id="L99">                            parkService.getAllEnergyUsagePerDay());</span>
+<span class="fc" id="L100">                    break;</span>
+                case &quot;10&quot;:
+                case &quot;count&quot;:
+<span class="fc" id="L103">                    System.out.println(&quot;Всего единиц на балансе: &quot; + parkService.getItemsCount());</span>
+<span class="fc" id="L104">                    break;</span>
+                case &quot;11&quot;:
+                case &quot;demo&quot;:
+<span class="nc" id="L107">                    runAutomatedDemo(parkService);</span>
+<span class="nc" id="L108">                    break;</span>
+                case &quot;1&quot;:
+                case &quot;add-scooter&quot;:
+<span class="fc" id="L111">                    handleAddScooter(tokens, parkService);</span>
+<span class="fc" id="L112">                    break;</span>
+                case &quot;2&quot;:
+                case &quot;add-bike&quot;:
+<span class="fc" id="L115">                    handleAddBike(tokens, parkService);</span>
+<span class="fc" id="L116">                    break;</span>
+                case &quot;3&quot;:
+                case &quot;add-ebike&quot;:
+<span class="nc" id="L119">                    handleAddElectricBike(tokens, parkService);</span>
+<span class="nc" id="L120">                    break;</span>
+                case &quot;4&quot;:
+                case &quot;add-helmet&quot;:
+<span class="nc" id="L123">                    handleAddHelmet(tokens, parkService);</span>
+<span class="nc" id="L124">                    break;</span>
+                case &quot;5&quot;:
+                case &quot;add-station&quot;:
+<span class="nc" id="L127">                    handleAddStation(tokens, parkService);</span>
+<span class="nc" id="L128">                    break;</span>
+                case &quot;6&quot;:
+                case &quot;add-charger&quot;:
+<span class="nc" id="L131">                    handleAddCharger(tokens, parkService);</span>
+<span class="nc" id="L132">                    break;</span>
+                default:
+<span class="nc" id="L134">                    System.out.println(&quot;Неизвестная команда. Введите 'help' для списка доступных команд.&quot;);</span>
+            }
+<span class="fc" id="L136">        }</span>
+<span class="nc" id="L137">    }</span>
+
+    private static void handleAddScooter(String[] tokens, ParkService parkService) {
+<span class="pc bpc" id="L140" title="1 of 2 branches missed.">        if (tokens.length &lt; 4) {</span>
+<span class="nc" id="L141">            System.out.println(&quot;Использование: add-scooter &lt;название&gt; &lt;простота 1-10&gt; &lt;кВт*ч&gt;&quot;);</span>
+<span class="nc" id="L142">            return;</span>
+        }
+        try {
+<span class="fc" id="L145">            String name = tokens[1];</span>
+<span class="fc" id="L146">            int simplicity = Integer.parseInt(tokens[2]);</span>
+<span class="fc" id="L147">            double energy = Double.parseDouble(tokens[3]);</span>
+<span class="fc" id="L148">            Scooter scooter = new Scooter(name, simplicity, energy);</span>
+<span class="fc" id="L149">            tryAddTransport(parkService, scooter);</span>
+<span class="nc" id="L150">        } catch (NumberFormatException e) {</span>
+<span class="nc" id="L151">            System.out.println(&quot;Ошибка: простота и расход энергии должны быть числами.&quot;);</span>
+<span class="nc" id="L152">        } catch (ApplicationException e) {</span>
+<span class="nc" id="L153">            System.out.println(&quot;Ошибка [&quot; + e.getCode() + &quot;]: &quot; + e.getMessage());</span>
+<span class="pc" id="L154">        }</span>
+<span class="fc" id="L155">    }</span>
+
+    private static void handleAddBike(String[] tokens, ParkService parkService) {
+<span class="pc bpc" id="L158" title="1 of 2 branches missed.">        if (tokens.length &lt; 3) {</span>
+<span class="nc" id="L159">            System.out.println(&quot;Использование: add-bike &lt;название&gt; &lt;простота 1-10&gt;&quot;);</span>
+<span class="nc" id="L160">            return;</span>
+        }
+        try {
+<span class="fc" id="L163">            String name = tokens[1];</span>
+<span class="fc" id="L164">            int simplicity = Integer.parseInt(tokens[2]);</span>
+<span class="fc" id="L165">            Bicycle bike = new Bicycle(name, simplicity);</span>
+<span class="fc" id="L166">            tryAddTransport(parkService, bike);</span>
+<span class="nc" id="L167">        } catch (NumberFormatException e) {</span>
+<span class="nc" id="L168">            System.out.println(&quot;Ошибка: простота должна быть числом.&quot;);</span>
+<span class="nc" id="L169">        } catch (ApplicationException e) {</span>
+<span class="nc" id="L170">            System.out.println(&quot;Ошибка [&quot; + e.getCode() + &quot;]: &quot; + e.getMessage());</span>
+<span class="pc" id="L171">        }</span>
+<span class="fc" id="L172">    }</span>
+
+    private static void handleAddElectricBike(String[] tokens, ParkService parkService) {
+<span class="nc bnc" id="L175" title="All 2 branches missed.">        if (tokens.length &lt; 4) {</span>
+<span class="nc" id="L176">            System.out.println(&quot;Использование: add-ebike &lt;название&gt; &lt;простота 1-10&gt; &lt;кВт*ч&gt;&quot;);</span>
+<span class="nc" id="L177">            return;</span>
+        }
+        try {
+<span class="nc" id="L180">            String name = tokens[1];</span>
+<span class="nc" id="L181">            int simplicity = Integer.parseInt(tokens[2]);</span>
+<span class="nc" id="L182">            double energy = Double.parseDouble(tokens[3]);</span>
+<span class="nc" id="L183">            ElectricBicycle ebike = new ElectricBicycle(name, simplicity, energy);</span>
+<span class="nc" id="L184">            tryAddTransport(parkService, ebike);</span>
+<span class="nc" id="L185">        } catch (NumberFormatException e) {</span>
+<span class="nc" id="L186">            System.out.println(&quot;Ошибка: параметры должны быть числами.&quot;);</span>
+<span class="nc" id="L187">        } catch (ApplicationException e) {</span>
+<span class="nc" id="L188">            System.out.println(&quot;Ошибка [&quot; + e.getCode() + &quot;]: &quot; + e.getMessage());</span>
+<span class="nc" id="L189">        }</span>
+<span class="nc" id="L190">    }</span>
+
+    private static void handleAddHelmet(String[] tokens, ParkService parkService) {
+<span class="nc bnc" id="L193" title="All 2 branches missed.">        if (tokens.length &lt; 2) {</span>
+<span class="nc" id="L194">            System.out.println(&quot;Использование: add-helmet &lt;название&gt;&quot;);</span>
+<span class="nc" id="L195">            return;</span>
+        }
+        try {
+<span class="nc" id="L198">            String name = tokens[1];</span>
+<span class="nc" id="L199">            Helmet helmet = new Helmet(name);</span>
+<span class="nc" id="L200">            parkService.addNewThing(helmet);</span>
+<span class="nc" id="L201">            System.out.println(&quot;Вещь поставлена на баланс: &quot; + helmet);</span>
+<span class="nc" id="L202">        } catch (ApplicationException e) {</span>
+<span class="nc" id="L203">            System.out.println(&quot;Ошибка [&quot; + e.getCode() + &quot;]: &quot; + e.getMessage());</span>
+<span class="nc" id="L204">        }</span>
+<span class="nc" id="L205">    }</span>
+
+    private static void handleAddStation(String[] tokens, ParkService parkService) {
+<span class="nc bnc" id="L208" title="All 2 branches missed.">        if (tokens.length &lt; 3) {</span>
+<span class="nc" id="L209">            System.out.println(&quot;Использование: add-station &lt;название&gt; &lt;кВт*ч&gt;&quot;);</span>
+<span class="nc" id="L210">            return;</span>
+        }
+        try {
+<span class="nc" id="L213">            String name = tokens[1];</span>
+<span class="nc" id="L214">            double energy = Double.parseDouble(tokens[2]);</span>
+<span class="nc" id="L215">            DockStation station = new DockStation(name, energy);</span>
+<span class="nc" id="L216">            parkService.addNewThing(station);</span>
+<span class="nc" id="L217">            System.out.println(&quot;Док-станция поставлена на баланс: &quot; + station);</span>
+<span class="nc" id="L218">        } catch (NumberFormatException e) {</span>
+<span class="nc" id="L219">            System.out.println(&quot;Ошибка: расход энергии должен быть числом.&quot;);</span>
+<span class="nc" id="L220">        } catch (ApplicationException e) {</span>
+<span class="nc" id="L221">            System.out.println(&quot;Ошибка [&quot; + e.getCode() + &quot;]: &quot; + e.getMessage());</span>
+<span class="nc" id="L222">        }</span>
+<span class="nc" id="L223">    }</span>
+
+    private static void handleAddCharger(String[] tokens, ParkService parkService) {
+<span class="nc bnc" id="L226" title="All 2 branches missed.">        if (tokens.length &lt; 3) {</span>
+<span class="nc" id="L227">            System.out.println(&quot;Использование: add-charger &lt;название&gt; &lt;кВт*ч&gt;&quot;);</span>
+<span class="nc" id="L228">            return;</span>
+        }
+        try {
+<span class="nc" id="L231">            String name = tokens[1];</span>
+<span class="nc" id="L232">            double energy = Double.parseDouble(tokens[2]);</span>
+<span class="nc" id="L233">            Charger charger = new Charger(name, energy);</span>
+<span class="nc" id="L234">            parkService.addNewThing(charger);</span>
+<span class="nc" id="L235">            System.out.println(&quot;Зарядный шкаф поставлен на баланс: &quot; + charger);</span>
+<span class="nc" id="L236">        } catch (NumberFormatException e) {</span>
+<span class="nc" id="L237">            System.out.println(&quot;Ошибка: расход энергии должен быть числом.&quot;);</span>
+<span class="nc" id="L238">        } catch (ApplicationException e) {</span>
+<span class="nc" id="L239">            System.out.println(&quot;Ошибка [&quot; + e.getCode() + &quot;]: &quot; + e.getMessage());</span>
+<span class="nc" id="L240">        }</span>
+<span class="nc" id="L241">    }</span>
+
+    private static void tryAddTransport(ParkService parkService, Transport transport) {
+<span class="fc" id="L244">        System.out.println(&quot;Отправляем на техосмотр: &quot; + transport.getName() + &quot;...&quot;);</span>
+<span class="fc" id="L245">        boolean accepted = parkService.addNewTransport(transport);</span>
+<span class="fc bfc" id="L246" title="All 2 branches covered.">        if (accepted) {</span>
+<span class="fc" id="L247">            System.out.println(&quot;✅ Техосмотр ПРОЙДЕН! Транспорт принят на баланс.&quot;);</span>
+        } else {
+<span class="fc" id="L249">            System.out.println(&quot;❌ Техосмотр ОТКЛОНЁН! Транспорт не допущен в активный парк.&quot;);</span>
+        }
+<span class="fc" id="L251">    }</span>
+
+    private static void runAutomatedDemo(ParkService parkService) {
+<span class="fc" id="L254">        System.out.println(&quot;\n================ ДЕМОНСТРАЦИОННЫЙ СЦЕНАРИЙ ================&quot;);</span>
+<span class="fc" id="L255">        System.out.println(&quot;1. Приём вещей на баланс (шлемы, зарядные шкафы, док-станции):&quot;);</span>
+<span class="fc" id="L256">        parkService.addNewThing(new Helmet(&quot;Шлем_HSE_Yellow&quot;));</span>
+<span class="fc" id="L257">        parkService.addNewThing(new Charger(&quot;Шкаф_Зарядный_Корпус_Покровка&quot;, 15.0));</span>
+<span class="fc" id="L258">        parkService.addNewThing(new DockStation(&quot;ДокСтанция_Шаболовка&quot;, 5.5));</span>
+<span class="fc" id="L259">        System.out.println(&quot;   -&gt; Вещи успешно добавлены на баланс.&quot;);</span>
+
+<span class="fc" id="L261">        System.out.println(&quot;\n2. Приём транспорта через техосмотр:&quot;);</span>
+<span class="fc" id="L262">        Scooter scooter1 = new Scooter(&quot;Ninebot_Pro&quot;, 8, 2.5);</span>
+<span class="fc" id="L263">        Scooter scooter2 = new Scooter(&quot;SpeedDemon_Extreme&quot;, 3, 4.0);</span>
+<span class="fc" id="L264">        Bicycle bike = new Bicycle(&quot;Forward_Classic&quot;, 9);</span>
+<span class="fc" id="L265">        ElectricBicycle ebike = new ElectricBicycle(&quot;ElectroBike_City&quot;, 6, 3.2);</span>
+
+<span class="fc" id="L267">        tryAddTransport(parkService, scooter1);</span>
+<span class="fc" id="L268">        tryAddTransport(parkService, scooter2);</span>
+<span class="fc" id="L269">        tryAddTransport(parkService, bike);</span>
+<span class="fc" id="L270">        tryAddTransport(parkService, ebike);</span>
+
+<span class="fc" id="L272">        System.out.println(&quot;\n3. Полный реестр имущества на балансе:&quot;);</span>
+<span class="fc" id="L273">        parkService.printItems();</span>
+
+<span class="fc" id="L275">        System.out.println(&quot;\n4. Техника, доступная для новичков (простота &gt;= 6):&quot;);</span>
+<span class="fc" id="L276">        List&lt;Transport&gt; forBeginners = parkService.getTransportForBeginners();</span>
+<span class="fc" id="L277">        forBeginners.forEach(t -&gt; System.out.println(&quot;   • &quot; + t));</span>
+
+<span class="fc" id="L279">        System.out.printf(&quot;\n5. Суммарный расход энергии активного парка: %.2f кВт·ч\n&quot;,</span>
+<span class="fc" id="L280">                parkService.getAllEnergyUsagePerDay());</span>
+<span class="fc" id="L281">        System.out.println(&quot;   (Учитываются только электросамокаты, электровелосипеды и зарядные станции)&quot;);</span>
+
+<span class="fc" id="L283">        System.out.println(&quot;================ КОНЕЦ ДЕМОНСТРАЦИИ ================&quot;);</span>
+<span class="fc" id="L284">        parkService.clearPark();</span>
+<span class="fc" id="L285">        System.out.println(&quot;🧹 Парк успешно очищен после демонстрации.\n&quot;);</span>
+<span class="fc" id="L286">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>
